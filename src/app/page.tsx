@@ -5,97 +5,80 @@ import { useState } from "react";
 /* ------------------------------------------------------------------ */
 /*  EDIT THESE THREE VALUES                                            */
 /* ------------------------------------------------------------------ */
-// 1. Your Web3Forms access key (get it free at web3forms.com, it is emailed to you)
-const ACCESS_KEY = "168cec93-f39e-41c2-b510-fa97376cbbb1";
+// 1. Your Web3Forms access key (free at web3forms.com, emailed to you)
+access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
 // 2. The email shown on the website
 const CONTACT_EMAIL = "deedeekshitha70@gmail.com";
 // 3. Optional phone number shown on the website. Leave "" to hide.
 const CONTACT_PHONE: string = "";
 
-/* All copy below is based on Dr. Maya Reynolds' profile. */
+/* All copy is based on Dr. Maya Reynolds' profile. */
 
 const services = [
   {
-    number: "01",
-    title: "Anxiety & Panic Therapy",
+    title: "Anxiety & Panic",
     image: "/service-anxiety.jpg",
-    imageAlt: "Calm sunlit window with soft curtains, representing anxiety therapy in Santa Monica",
+    imageAlt: "Soft light through sheer curtains, representing calm after anxiety and panic therapy in Santa Monica",
     description:
-      "For constant worry, tension in your body, difficulty sleeping, or the sense that you're always bracing for something to go wrong. Using CBT, mindfulness-based practices, and body-oriented techniques, we work with both the emotional and physiological sides of anxiety and panic.",
+      "For constant worry, tension in your body, difficulty sleeping, or the sense that you're always bracing for something to go wrong. We work with both the emotional and physiological sides of what you're experiencing.",
+    tag: "ANXIETY · PANIC · OVERTHINKING",
+    position: "object-center",
   },
   {
-    number: "02",
-    title: "Trauma Therapy & EMDR",
+    title: "Trauma & EMDR",
     image: "/service-trauma.jpg",
-    imageAlt: "Quiet, grounding natural scene representing trauma therapy and EMDR in Santa Monica",
+    imageAlt: "Quiet misty path representing a carefully paced trauma therapy and EMDR journey in Santa Monica",
     description:
-      "Support for adults with single-incident trauma as well as complex, long-standing patterns that may stem from childhood, relationships, or chronic stress. Work is paced carefully, with an emphasis on safety, stabilization, and feeling more regulated in daily life.",
+      "Support for adults with single-incident trauma as well as complex, long-standing patterns that may stem from childhood, relationships, or chronic stress, paced carefully with an emphasis on safety and stabilization.",
+    tag: "TRAUMA · EMDR · SAFETY",
+    position: "object-center",
   },
   {
-    number: "03",
-    title: "Burnout & Perfectionism Therapy",
+    title: "Burnout & Perfectionism",
     image: "/service-burnout.jpg",
-    imageAlt: "Slow, restful morning scene representing burnout therapy for professionals in Santa Monica",
+    imageAlt: "Tea and a book in quiet morning light representing slowing down after professional burnout",
     description:
-      "For entrepreneurs, creatives, and professionals who feel disconnected from themselves after years of pushing through stress. Therapy becomes a space to slow down, ease perfectionism and high internal pressure, and build more sustainable ways of living and working.",
+      "For entrepreneurs, creatives, and professionals who feel disconnected from themselves after years of pushing through stress. Therapy becomes a space to slow down and build more sustainable ways of living and working.",
+    tag: "BURNOUT · HIGH INTERNAL PRESSURE",
+    position: "object-[35%_50%]",
   },
 ];
 
-const focusAreas = [
+const areas = [
   "Anxiety",
   "Panic",
   "Trauma",
-  "Burnout",
+  "Complex trauma",
+  "Professional burnout",
   "Perfectionism",
-  "Cognitive-Behavioral Therapy (CBT)",
-  "EMDR",
-  "Mindfulness-Based Practices",
-  "Body-Oriented Techniques",
+  "Overthinking",
+  "Difficulty sleeping",
+  "High internal pressure",
+  "Tension in the body",
+  "Relationships",
+  "Confidence & sense of safety",
 ];
 
-const trustItems = [
-  { label: "Credentials", value: "Licensed Clinical Psychologist" },
-  { label: "Clients", value: "Adults" },
-  { label: "Sessions", value: "In-person & Telehealth" },
-  { label: "Location", value: "Santa Monica, California" },
-];
-
-const signs = [
-  "Constant worry that is hard to switch off",
-  "Tension in your body, or difficulty sleeping",
-  "Feeling like you're always bracing for something to go wrong",
-  "Stuck in overthinking, exhausted, or emotionally on edge",
-  "Earlier life experiences still affecting your relationships, confidence, or sense of safety",
-  "Feeling disconnected from yourself after years of pushing through stress",
-];
-
-const modalities = [
-  "Cognitive-Behavioral Therapy (CBT)",
-  "EMDR",
-  "Mindfulness-Based Practices",
-  "Body-Oriented Techniques",
-];
-
-const clientTypes = ["Entrepreneurs", "Creatives", "Professionals", "High-achieving adults"];
-
-const approach = [
+const methods = [
   {
-    number: "1",
-    title: "Safety & stabilization",
+    title: "Cognitive-Behavioral Therapy",
     description:
-      "Work is paced carefully. We build a sense of safety and help you feel more regulated in your daily life, not just during sessions.",
+      "CBT brings practical tools to constant worry and overthinking, balanced with depth-oriented work so change lasts beyond the session.",
   },
   {
-    number: "2",
-    title: "Insight & understanding",
+    title: "EMDR",
     description:
-      "Sessions are structured enough to feel supportive, with space for reflection and depth, so you can understand both the emotional and physiological sides of what you're experiencing.",
+      "EMDR is one of the evidence-based methods I integrate into trauma work, which is paced carefully with an emphasis on safety and stabilization.",
   },
   {
-    number: "3",
-    title: "Resilience & self-connection",
+    title: "Mindfulness-Based Practices",
     description:
-      "The goal is not just symptom relief, but lasting insight, resilience, and a stronger relationship with yourself over time.",
+      "Mindfulness-based practices help you notice and understand what you're experiencing, and feel more regulated in your daily life.",
+  },
+  {
+    title: "Body-Oriented Techniques",
+    description:
+      "Anxiety and trauma often show up in the body. Body-oriented techniques address tension and the physiological side of what you're experiencing.",
   },
 ];
 
@@ -128,7 +111,8 @@ const faqs = [
 
 const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
+  { label: "Specialties", href: "#specialties" },
+  { label: "Methods", href: "#methods" },
   { label: "Our Office", href: "#office" },
   { label: "FAQs", href: "#faq" },
 ];
@@ -136,7 +120,7 @@ const navLinks = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "Dr. Maya Reynolds, PsyD - Psychology & Wellbeing",
+  name: "Dr. Maya Reynolds, PsyD - Clinical Psychology",
   description:
     "Licensed clinical psychologist offering anxiety, trauma, and burnout therapy for adults in Santa Monica, California, with in-person and telehealth sessions.",
   address: {
@@ -153,11 +137,68 @@ const jsonLd = {
   ],
 };
 
-const inputClass =
-  "w-full rounded-xl border border-[#2b1b3d]/20 bg-white px-4 py-3 text-sm text-[#2b1b3d] placeholder:text-[#8a7d9c] outline-none transition focus:border-[#c9441f] focus:ring-4 focus:ring-[#c9441f]/15";
+/*
+  Image component.
+  - fit="natural" (default): the WHOLE picture is shown, nothing is cropped.
+  - fit="cover": fills its box (only used for the wide quote banner).
+  - If the file is missing it tries `fallbackSrc`, then shows a soft gradient.
+*/
+function Photo({
+  src,
+  fallbackSrc,
+  alt,
+  className = "",
+  imgClassName = "",
+  fit = "natural",
+  eager = false,
+}: {
+  src: string;
+  fallbackSrc?: string;
+  alt: string;
+  className?: string;
+  imgClassName?: string;
+  fit?: "natural" | "cover";
+  eager?: boolean;
+}) {
+  return (
+    <div
+      className={`overflow-hidden bg-linear-to-br from-blush via-cream to-sage ${
+        fit === "natural" ? "min-h-40" : ""
+      } ${className}`}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading={eager ? "eager" : "lazy"}
+        onError={(e) => {
+          const img = e.currentTarget;
+          if (fallbackSrc && !img.dataset.fallback) {
+            img.dataset.fallback = "1";
+            img.src = fallbackSrc;
+          } else {
+            img.style.display = "none";
+          }
+        }}
+        className={`${
+          fit === "natural"
+            ? "block h-auto w-full"
+            : "block h-full w-full object-cover"
+        } ${imgClassName}`}
+      />
+    </div>
+  );
+}
 
-const primaryButton =
-  "rounded-full bg-gradient-to-r from-[#c9441f] to-[#b02a63] px-7 py-4 text-center text-sm font-medium text-white shadow-xl shadow-[#c9441f]/25 transition hover:-translate-y-1 hover:shadow-2xl";
+const wrap = "mx-auto max-w-[1300px] px-6 md:px-12 lg:px-16";
+const label = "text-xs uppercase tracking-[0.25em]";
+const h2 = "font-heading text-4xl font-light leading-[1.1] md:text-5xl";
+const body = "text-base leading-8 text-muted";
+const linkUnderline =
+  "inline-block border-b border-current pb-1 text-xs uppercase tracking-[0.25em] transition hover:opacity-70";
+const script = "font-script text-[1.15em] leading-none";
+const leaf = "rounded-tl-[80px] rounded-br-[80px] rounded-tr-2xl rounded-bl-2xl";
+const inputClass =
+  "w-full border border-cream/40 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/60 outline-none transition focus:border-rose-light";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -170,7 +211,10 @@ export default function Home() {
 
     try {
       const formData = new FormData(form);
-      formData.append("access_key", ACCESS_KEY);
+      formData.append(
+        "access_key",
+        process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? ""
+      );
       formData.append("subject", "New consultation request from your website");
 
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -191,595 +235,585 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#fff8f2] text-[#2b1b3d]">
+    <main id="top" className="bg-cream text-plum">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <style>{`
-        html { scroll-behavior: smooth; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        .marquee-track { animation: marquee 50s linear infinite; }
-        .fade-up { animation: fadeUp 0.9s ease-out both; }
-        .fade-up-2 { animation: fadeUp 0.9s ease-out 0.15s both; }
-        .fade-up-3 { animation: fadeUp 0.9s ease-out 0.3s both; }
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] .faq-icon { transform: rotate(45deg); }
-        @media (prefers-reduced-motion: reduce) {
-          .marquee-track, .fade-up, .fade-up-2, .fade-up-3 { animation: none; }
-          html { scroll-behavior: auto; }
-        }
-      `}</style>
-
-      {/* Navigation */}
-      <header className="sticky top-0 z-50 border-b border-[#2b1b3d]/10 bg-[#fff8f2]/90 backdrop-blur-lg">
+      {/* ============ Navigation ============ */}
+      <header className="sticky top-0 z-50 border-b border-plum/10 bg-cream/95 backdrop-blur">
         <nav
           aria-label="Main"
-          className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-12"
+          className={`${wrap} flex items-center justify-between py-4`}
         >
-          <a href="#" className="text-sm font-semibold tracking-wide sm:text-lg">
-            MAYA REYNOLDS, PsyD
-            <span className="mt-1 block text-[10px] font-normal tracking-[0.2em] text-[#c23d1f] sm:text-xs">
-              PSYCHOLOGY & WELLBEING
+          <a href="#top" className="leading-none">
+            <span className="block font-heading text-3xl font-light sm:text-4xl">
+              Maya Reynolds
+            </span>
+            <span className="mt-1 block text-[10px] tracking-[0.35em] text-rose sm:text-xs">
+              PSYD · CLINICAL PSYCHOLOGY
             </span>
           </a>
 
-          <div className="hidden items-center gap-8 text-sm md:flex">
+          <div className="hidden items-center gap-9 text-[13px] uppercase tracking-[0.18em] lg:flex">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="group relative py-1 transition hover:text-[#c23d1f]"
-              >
+              <a key={link.href} href={link.href} className="transition hover:text-rose">
                 {link.label}
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#c23d1f] transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
-          </div>
-
-          <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="rounded-full bg-[#2b1b3d] px-5 py-2.5 text-sm text-white shadow-lg shadow-[#2b1b3d]/20 transition hover:-translate-y-0.5 hover:bg-[#c23d1f] sm:px-6 sm:py-3"
+              className="rounded-full border border-plum px-7 py-3 text-xs tracking-[0.2em] transition hover:bg-plum hover:text-cream"
             >
-              Get in touch
+              Contact
             </a>
-
-            <button
-              type="button"
-              aria-label="Toggle menu"
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((open) => !open)}
-              className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-[#2b1b3d]/20 md:hidden"
-            >
-              <span className={`h-0.5 w-5 bg-[#2b1b3d] transition ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
-              <span className={`h-0.5 w-5 bg-[#2b1b3d] transition ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`h-0.5 w-5 bg-[#2b1b3d] transition ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
-            </button>
           </div>
+
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-plum/40 lg:hidden"
+          >
+            <span className={`h-px w-5 bg-plum transition ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+            <span className={`h-px w-5 bg-plum transition ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`h-px w-5 bg-plum transition ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          </button>
         </nav>
 
         {menuOpen && (
-          <div className="border-t border-[#2b1b3d]/10 bg-[#fff8f2] px-6 py-4 md:hidden">
-            <div className="flex flex-col">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="border-b border-[#2b1b3d]/10 py-4 text-lg last:border-0"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+          <div className="border-t border-plum/10 bg-cream px-6 pb-4 lg:hidden">
+            {[...navLinks, { label: "Contact", href: "#contact" }].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="block border-b border-plum/10 py-4 text-sm uppercase tracking-[0.2em] last:border-0"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         )}
       </header>
 
-      {/* Hero */}
-      <section className="relative">
-        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#ffd9c9] opacity-70 blur-3xl" />
-        <div className="pointer-events-none absolute -right-20 top-40 h-80 w-80 rounded-full bg-[#e3d8ff] opacity-80 blur-3xl" />
-
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-14 sm:px-6 md:grid-cols-2 md:py-24 lg:px-12">
-          <div>
-            <p className="fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-[#c23d1f]/25 bg-white/70 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-[#c23d1f] sm:text-xs sm:tracking-[0.25em]">
-              <span className="h-2 w-2 rounded-full bg-[#c9441f]" />
-              Licensed Clinical Psychologist · Santa Monica, CA
-            </p>
-
-            <h1 className="fade-up-2 max-w-xl font-serif text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              Anxiety, Trauma & Burnout Therapy in{" "}
-              <span className="bg-gradient-to-r from-[#c9441f] via-[#b02a63] to-[#6a3fd6] bg-clip-text italic text-transparent">
-                Santa Monica, CA
-              </span>
-            </h1>
-
-            <p className="fade-up-3 mt-7 max-w-lg text-base leading-8 text-[#5d4d70] sm:text-lg">
-              Dr. Maya Reynolds, PsyD, offers warm, collaborative therapy for
-              adults who look “functional” on the outside but feel overwhelmed,
-              exhausted, or on edge inside. In-person in Santa Monica or by
-              secure telehealth across California.
-            </p>
-
-            <div className="fade-up-3 mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <a href="#contact" className={primaryButton}>
-                Request a consultation ↗
-              </a>
-              <a
-                href="#services"
-                className="inline-block rounded-full border border-[#2b1b3d]/25 px-7 py-4 text-center text-sm transition hover:bg-[#2b1b3d] hover:text-white"
-              >
-                Explore therapy services
-              </a>
-            </div>
-
-            <p className="mt-6 text-sm text-[#6b5b7d]">
-              In-person in Santa Monica · Telehealth throughout California
-            </p>
-          </div>
-
-          {/* Portrait */}
-          <div className="relative mx-auto w-full max-w-md">
-            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-[#e3d8ff] via-[#ffe3d6] to-[#ffd0bd] opacity-80 blur-2xl" />
-
-            <img
+      {/* ============ Hero (portrait left, text right) ============ */}
+      <section className="overflow-hidden">
+        <div className={`${wrap} grid items-center gap-12 py-12 md:grid-cols-12 md:py-16 lg:py-20`}>
+          <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] md:col-span-5 md:mx-0 md:max-w-[360px] md:justify-self-center">
+            <div className={`absolute -bottom-3 -right-3 h-full w-full bg-blush ${leaf}`} />
+            <Photo
               src="/portrait.png"
-              alt="Dr. Maya Reynolds, PsyD, licensed clinical psychologist in Santa Monica, California"
-              className="relative block h-auto w-full rounded-3xl"
+              alt="Dr. Maya Reynolds, PsyD, licensed clinical psychologist offering therapy in Santa Monica, California"
+              eager
+              className={`relative ${leaf}`}
             />
-
-            <div className="absolute -bottom-5 left-4 right-4 rounded-2xl bg-white/95 px-5 py-4 shadow-xl backdrop-blur sm:left-auto sm:right-[-1.5rem] sm:w-64">
-              <p className="font-serif text-lg leading-tight">Dr. Maya Reynolds, PsyD</p>
-              <p className="mt-1 text-xs uppercase tracking-widest text-[#c23d1f]">
+            <div className="absolute -bottom-5 left-4 rounded-lg bg-cream px-4 py-3 shadow-lg">
+              <p className="font-heading text-lg leading-tight">Dr. Maya Reynolds, PsyD</p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-rose">
                 Licensed Clinical Psychologist
               </p>
             </div>
           </div>
+
+          <div className="md:col-span-7">
+            <p className={`${label} text-rose`}>
+              Therapy for adults · Santa Monica, California
+            </p>
+
+            <h1 className="mt-5 font-heading text-4xl font-light leading-[1.1] sm:text-5xl lg:text-6xl">
+              Anxiety, trauma &amp; burnout therapy in{" "}
+              <span className={`${script} text-rose`}>Santa Monica</span>, CA
+            </h1>
+
+            <p className={`${body} mt-6 max-w-xl text-lg`}>
+              You don&apos;t have to hold everything together. A thoughtful
+              space to work through anxiety, heal from difficult experiences,
+              and reconnect with yourself.
+            </p>
+
+            <a
+              href="#contact"
+              className="mt-8 inline-flex items-center gap-3 rounded-full bg-plum px-8 py-4 text-xs uppercase tracking-[0.25em] text-cream transition hover:bg-rose"
+            >
+              Request a consultation <span aria-hidden="true">↗</span>
+            </a>
+
+            <p className="mt-5 text-sm leading-6 text-muted">
+              In-person in Santa Monica · Secure telehealth throughout California
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Trust bar */}
-      <section className="border-y border-[#2b1b3d]/10 bg-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-5 py-8 sm:px-6 md:grid-cols-4 lg:px-12">
-          {trustItems.map((item) => (
-            <div key={item.label} className="text-center md:text-left">
-              <p className="text-[10px] uppercase tracking-[0.25em] text-[#c23d1f]">{item.label}</p>
-              <p className="mt-1 font-serif text-base sm:text-lg">{item.value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ============ About / Introduction ============ */}
+      <section id="about" className="scroll-mt-20 bg-cream pb-14 pt-6 md:pb-20">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-12 lg:items-center`}>
+          <div className="lg:col-span-7">
+            <h2 className={h2}>
+              Meet Dr. Maya Reynolds, clinical psychologist in Santa Monica, CA.
+            </h2>
 
-      {/* Marquee */}
-      <section aria-label="Areas of focus" className="overflow-hidden bg-[#2b1b3d] py-5 text-[#fff8f2]">
-        <div className="marquee-track flex w-max gap-10 whitespace-nowrap">
-          {[...focusAreas, ...focusAreas].map((item, index) => (
-            <span key={`${item}-${index}`} className="flex items-center gap-10 font-serif text-lg italic sm:text-xl">
-              {item}
-              <span className="text-[#ff9a7b]">✦</span>
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* Introduction */}
-      <section className="relative bg-gradient-to-b from-[#f1eaff] to-[#fff1e8] px-5 py-16 sm:px-6 md:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#c23d1f]">
-            Therapy for high-achieving adults in Santa Monica
-          </p>
-
-          <h2 className="mt-5 font-serif text-3xl leading-tight md:text-5xl">
-            Functional on the outside. Exhausted, anxious, or on edge inside.
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl leading-8 text-[#5d4d70]">
-            Many of the people I work with are high-achieving, thoughtful, and
-            self-aware, but internally feel exhausted, stuck in overthinking, or
-            emotionally on edge. Therapy can help you understand what you're
-            carrying and develop a stronger relationship with yourself.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-14 max-w-5xl">
-          <p className="mb-6 text-center font-serif text-xl">Does any of this sound familiar?</p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {signs.map((sign) => (
-              <div key={sign} className="flex items-start gap-4 rounded-2xl bg-white/80 p-5 shadow-sm">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ffe3d6] text-xs text-[#c23d1f]">
-                  ✓
-                </span>
-                <p className="text-sm leading-6 text-[#4a3b5c] sm:text-base">{sign}</p>
+            <div className="mt-8 grid gap-8 md:grid-cols-2">
+              <div className="space-y-5">
+                <p className={`${label} leading-8`}>
+                  Many of my clients are high-achieving, thoughtful, and
+                  self-aware, yet internally feel exhausted, stuck in
+                  overthinking, or emotionally on edge.
+                </p>
+                <p className={body}>
+                  I&apos;m a licensed clinical psychologist based in Santa
+                  Monica, California, offering therapy for adults who feel
+                  overwhelmed by anxiety, stress, or the lingering effects of
+                  past experiences.
+                </p>
               </div>
+
+              <div className="space-y-5">
+                <p className={body}>
+                  Clients frequently come to me feeling “functional” on the
+                  outside while quietly struggling with constant worry, tension
+                  in their body, difficulty sleeping, or a sense that
+                  they&apos;re always bracing for something to go wrong.
+                </p>
+                <p className={body}>
+                  If you&apos;re looking for a therapist who combines practical
+                  tools with depth-oriented work, and who understands the
+                  realities of living and working in a fast-paced environment,
+                  I may be a good fit.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <Photo
+            src="/intro-calm.jpg"
+            alt="Calm, quiet landscape in soft light, representing a grounded approach to therapy in Santa Monica"
+            className={`lg:col-span-5 ${leaf}`}
+          />
+        </div>
+      </section>
+
+      {/* ============ Services: How I help ============ */}
+      <section id="specialties" className="scroll-mt-20 bg-sage py-14 md:py-20">
+        <div className={wrap}>
+          <h2 className={h2}>
+            How I <span className={`${script} text-rose`}>help</span>
+          </h2>
+          <p className={`${body} mt-4 max-w-2xl`}>
+            Our work is collaborative and tailored to your experiences, needs,
+            and goals.
+          </p>
+
+          <div className="mt-10 grid items-start gap-10 md:grid-cols-3">
+            {services.map((service) => (
+              <article key={service.title} className="group">
+                <Photo
+                  src={service.image}
+                  alt={service.imageAlt}
+                  fit="cover"
+                  className="aspect-square rounded-2xl"
+                  imgClassName={`transition duration-700 group-hover:scale-105 ${service.position}`}
+                />
+                <h3 className="mt-6 font-heading text-3xl font-light">{service.title}</h3>
+                <p className={`${body} mt-3`}>{service.description}</p>
+                <p className="mt-5 border-t border-plum/15 pt-4 text-[10px] tracking-[0.15em] text-rose">
+                  {service.tag}
+                </p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section id="services" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-20 sm:px-6 md:py-28 lg:px-12">
-        <div className="max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#c23d1f]">How I can help</p>
-
-          <h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">
-            Therapy for anxiety, trauma, and burnout in Santa Monica.
-          </h2>
-
-          <p className="mt-5 leading-8 text-[#5d4d70]">
-            I integrate evidence-based methods such as CBT, EMDR,
-            mindfulness-based practices, and body-oriented techniques to help
-            you work with both the emotional and physiological sides of what
-            you're experiencing.
+      {/* ============ Quote banner ============ */}
+      <section className="relative">
+        <Photo
+          src="/banner.jpg"
+          alt="Quiet, light-filled space representing a calm place to be heard in Santa Monica"
+          fit="cover"
+          className="h-[340px] md:h-[440px]"
+        />
+        <div className="absolute inset-0 bg-plum-deep/70" />
+        <div className="absolute inset-0 flex items-center">
+          <p className={`${wrap} w-full max-w-4xl font-heading text-3xl font-light leading-snug text-cream md:text-5xl`}>
+            My goal is not just symptom relief, but helping you develop{" "}
+            <em>insight, resilience, and a stronger relationship with yourself.</em>
           </p>
         </div>
+      </section>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {services.map((service) => (
-            <article
-              key={service.number}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-[#2b1b3d]/10 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:border-transparent hover:shadow-2xl hover:shadow-[#6a3fd6]/20"
-            >
-              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[#e3d8ff] via-[#ffe3d6] to-[#ffd0bd]">
-                <img
-                  src={service.image}
-                  alt={service.imageAlt}
-                  loading="lazy"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                />
-                <span className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-[#2b1b3d] font-serif text-sm text-white">
-                  {service.number}
-                </span>
-              </div>
+      {/* ============ Areas of expertise ============ */}
+      <section id="expertise" className="relative scroll-mt-20 overflow-hidden bg-cream py-14 md:py-20">
+        <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-blush/80 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-sage blur-3xl" />
 
-              <div className="flex flex-1 flex-col p-7 md:p-8">
-                <h3 className="font-serif text-2xl">{service.title}</h3>
-                <p className="mt-4 flex-1 leading-7 text-[#5d4d70]">{service.description}</p>
-                <a
-                  href="#contact"
-                  className="mt-6 inline-block text-sm font-medium text-[#c23d1f] transition group-hover:translate-x-1"
+        <div className={`${wrap} relative grid gap-10 lg:grid-cols-12`}>
+          <div className="lg:col-span-4">
+            <p className={`${label} text-rose`}>What I treat</p>
+            <h2 className={`${h2} mt-4`}>
+              Areas of <span className={`${script} text-rose`}>expertise</span>
+            </h2>
+            <p className={`${body} mt-5`}>
+              Support for both the emotional and physiological sides of what
+              you&apos;re experiencing, paced carefully and with attention to
+              safety.
+            </p>
+            <a href="#contact" className={`${linkUnderline} mt-8`}>
+              Request a consultation
+            </a>
+          </div>
+
+          <div className="rounded-3xl border border-plum/10 bg-white/70 p-5 shadow-xl shadow-plum/5 backdrop-blur sm:p-8 lg:col-span-8">
+            <ul className="grid gap-x-10 sm:grid-cols-2">
+              {areas.map((area, index) => (
+                <li
+                  key={area}
+                  className="group flex items-center gap-4 border-b border-plum/10 py-5 text-sm uppercase tracking-[0.2em] transition hover:border-rose hover:text-rose"
                 >
-                  Discuss this with me →
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* About Dr. Maya */}
-      <section
-        id="about"
-        className="relative scroll-mt-20 overflow-hidden bg-[#2b1b3d] px-5 py-20 text-[#fff8f2] sm:px-6 md:py-28"
-      >
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#6a3fd6]/30 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-[#c9441f]/20 blur-3xl" />
-
-        <div className="relative mx-auto max-w-7xl lg:px-12">
-          <div className="grid gap-12 md:grid-cols-5 md:items-center">
-            <div className="mx-auto w-full max-w-sm md:col-span-2">
-              <img
-                src="/portrait.png"
-                alt="Dr. Maya Reynolds, PsyD, clinical psychologist offering therapy in Santa Monica, CA"
-                loading="lazy"
-                className="block h-auto w-full rounded-3xl shadow-2xl shadow-black/30"
-              />
-            </div>
-
-            <div className="md:col-span-3">
-              <p className="text-xs uppercase tracking-[0.25em] text-[#ffb29e]">Meet your therapist</p>
-
-              <h2 className="mt-5 font-serif text-4xl leading-tight md:text-5xl">
-                Dr. Maya Reynolds, PsyD:{" "}
-                <span className="italic text-[#ff9a7b]">clinical psychologist in Santa Monica, CA.</span>
-              </h2>
-
-              <p className="mt-6 leading-8 text-white/85">
-                I'm a licensed clinical psychologist offering therapy for adults
-                who feel overwhelmed by anxiety, stress, or the lingering
-                effects of past experiences. I take a warm, collaborative, and
-                grounded approach, with sessions structured enough to feel
-                supportive while still leaving space for reflection and depth.
-              </p>
-
-              <p className="mt-5 leading-8 text-white/85">
-                Trauma work is an important part of my practice, alongside
-                anxiety, panic, professional burnout, and perfectionism. If
-                you're looking for a therapist who combines practical tools with
-                depth-oriented work, and who understands the realities of living
-                and working in a fast-paced environment, I may be a good fit.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-14 grid gap-5 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-              <h3 className="font-serif text-xl text-[#ffb29e]">Methods I use</h3>
-              <div className="mt-4 flex flex-wrap gap-3">
-                {modalities.map((item) => (
-                  <span key={item} className="rounded-full border border-white/25 px-4 py-2 text-sm text-white/90">
-                    {item}
+                  <span className="font-heading text-lg tracking-normal text-rose">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-              <h3 className="font-serif text-xl text-[#ffb29e]">Who I work with</h3>
-              <div className="mt-4 flex flex-wrap gap-3">
-                {clientTypes.map((item) => (
-                  <span key={item} className="rounded-full border border-white/25 px-4 py-2 text-sm text-white/90">
-                    {item}
+                  <span className="flex-1">{area}</span>
+                  <span
+                    aria-hidden="true"
+                    className="-translate-x-2 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100"
+                  >
+                    →
                   </span>
-                ))}
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Approach */}
-      <section className="mx-auto max-w-7xl px-5 py-20 sm:px-6 md:py-28 lg:px-12">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#c23d1f]">My approach</p>
-          <h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">
-            A warm, collaborative, and grounded approach to therapy.
-          </h2>
-        </div>
+      {/* ============ How I work (image right) ============ */}
+      <section className="bg-blush py-14 md:py-20">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-12 lg:items-center`}>
+          <div className="lg:col-span-7">
+            <p className={`${label} text-rose`}>How I work</p>
 
-        <div className="relative mt-14 grid gap-10 md:grid-cols-3">
-          <div className="absolute left-[16%] right-[16%] top-8 hidden border-t-2 border-dashed border-[#c9441f]/40 md:block" />
-          {approach.map((step) => (
-            <div key={step.number} className="relative text-center">
-              <span className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#c9441f] to-[#b02a63] font-serif text-2xl text-white shadow-lg shadow-[#c9441f]/30">
-                {step.number}
-              </span>
-              <h3 className="mt-6 font-serif text-2xl">{step.title}</h3>
-              <p className="mx-auto mt-3 max-w-xs leading-7 text-[#5d4d70]">{step.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Our Office */}
-      <section id="office" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-20 sm:px-6 md:py-24 lg:px-12">
-        <div className="grid gap-12 md:grid-cols-2 md:items-center">
-          <div className="grid grid-cols-2 items-start gap-3 md:gap-5">
-            <div className="overflow-hidden rounded-3xl bg-[#e3d8ff] shadow-xl shadow-[#2b1b3d]/15">
-              <img
-                src="/office1.jpeg"
-                alt="Calm Santa Monica therapy office with natural light, sofa, and large windows"
-                className="block h-auto w-full transition duration-700 hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-
-            <div className="mt-8 overflow-hidden rounded-3xl bg-[#ffd9c9] shadow-xl shadow-[#2b1b3d]/15 md:mt-12">
-              <img
-                src="/office2.jpeg"
-                alt="Comfortable, uncluttered counseling space in Dr. Maya Reynolds' Santa Monica office"
-                className="block h-auto w-full transition duration-700 hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className="md:p-4 lg:p-8">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#c23d1f]">Our office</p>
-
-            <h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">
-              A calm, private therapy space in Santa Monica.
+            <h2 className={`${h2} mt-4`}>
+              A warm, collaborative, and grounded approach.
             </h2>
 
-            <p className="mt-5 leading-8 text-[#5d4d70]">
+            <div className="mt-8 grid gap-8 md:grid-cols-2">
+              <div className="space-y-5">
+                <p className={`${label} leading-8`}>
+                  Sessions are structured enough to feel supportive, while
+                  still leaving space for reflection and depth.
+                </p>
+                <p className={body}>
+                  I believe therapy works best when you feel respected,
+                  understood, and actively involved in the process.
+                </p>
+              </div>
+
+              <p className={body}>
+                My work is paced carefully, with an emphasis on safety,
+                stabilization, and helping you feel more regulated in your
+                daily life, not just during sessions. We&apos;ll look at both
+                the emotional and physiological sides of what you&apos;re
+                experiencing.
+              </p>
+            </div>
+
+            <a href="#about" className={`${linkUnderline} mt-8`}>
+              Learn more about me
+            </a>
+          </div>
+
+          <Photo
+            src="/approach.jpg"
+            alt="Calm, private therapy space designed for a collaborative approach"
+            className={`lg:col-span-5 ${leaf}`}
+          />
+        </div>
+      </section>
+
+      {/* ============ Beyond symptom relief (image left) ============ */}
+      <section className="bg-cream py-14 md:py-20">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-12 lg:items-center`}>
+          <Photo
+            src="/insight.jpg"
+            alt="Quiet morning light representing insight and resilience after therapy"
+            className={`lg:col-span-6 ${leaf}`}
+          />
+
+          <div className="lg:col-span-6 lg:pl-8">
+            <h2 className="font-heading text-4xl font-light leading-[1.15] md:text-5xl">
+              Beyond symptom relief, toward insight{" "}
+              <span className={`${script} text-rose`}>&amp;</span> resilience.
+            </h2>
+            <p className={`${body} mt-6`}>
+              Therapy can become a space to slow down, reconnect, and develop
+              more sustainable ways of living and working, with a stronger
+              relationship with yourself over time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ Methods (2 x 2) ============ */}
+      <section id="methods" className="scroll-mt-20 bg-sage py-14 md:py-20">
+        <div className={`${wrap} grid gap-8 lg:grid-cols-12`}>
+          <h2 className={`${h2} lg:col-span-4`}>
+            My <span className={`${script} text-rose`}>methods</span> include…
+          </h2>
+
+          <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:col-span-8">
+            {methods.map((method) => (
+              <article key={method.title}>
+                <h3 className="font-heading text-3xl font-light">{method.title}</h3>
+                <p className={`${body} mt-3`}>{method.description}</p>
+                <a href="#contact" className={`${linkUnderline} mt-5`}>
+                  Ask about this
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ Our Office (new section) ============ */}
+      <section id="office" className="scroll-mt-20 bg-cream py-14 md:py-20">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:items-center`}>
+          <div className="grid grid-cols-2 items-start gap-4 md:gap-6">
+            <Photo
+              src="/office1.jpeg"
+              alt="Calm Santa Monica therapy office with natural light, a sofa, and large windows"
+              className="rounded-2xl"
+            />
+            <Photo
+              src="/office2.jpeg"
+              alt="Comfortable, uncluttered counseling space in Dr. Maya Reynolds' Santa Monica office"
+              className="mt-10 rounded-2xl md:mt-14"
+            />
+          </div>
+
+          <div>
+            <p className={`${label} text-rose`}>Our office</p>
+            <h2 className={`${h2} mt-4`}>
+              A calm, private therapy space in{" "}
+              <span className={`${script} text-rose`}>Santa Monica</span>
+            </h2>
+
+            <p className={`${body} mt-6`}>
               My Santa Monica office is a quiet, private space designed to feel
               calm and grounding, with natural light and a comfortable,
-              uncluttered environment. Clients often share that the space itself
-              helps them feel more at ease when they arrive.
+              uncluttered environment. Clients often share that the space
+              itself helps them feel more at ease when they arrive.
             </p>
-
-            <p className="mt-4 leading-8 text-[#5d4d70]">
+            <p className={`${body} mt-4`}>
               In-person sessions are available here, and secure telehealth is
               available for clients located in California.
             </p>
 
-            <div className="mt-6 rounded-2xl border-l-4 border-[#c9441f] bg-white p-5 leading-7 text-[#5d4d70] shadow-md">
-              <p className="font-medium text-[#2b1b3d]">Santa Monica Office</p>
+            <div className="mt-6 border-l-2 border-rose pl-6 leading-8 text-muted">
+              <p className="font-semibold text-plum">Santa Monica Office</p>
               <p>123th Street 45 W</p>
               <p>Santa Monica, CA 90401</p>
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=123th+Street+45+W+Santa+Monica+CA+90401"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm font-medium text-[#c23d1f] hover:underline"
-              >
-                Get directions ↗
-              </a>
             </div>
+
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=123th+Street+45+W+Santa+Monica+CA+90401"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${linkUnderline} mt-6`}
+            >
+              Get directions
+            </a>
           </div>
         </div>
       </section>
 
-      {/* FAQs */}
-      <section id="faq" className="scroll-mt-20 bg-gradient-to-b from-[#f1eaff] to-[#fff1e8] px-5 py-20 sm:px-6 md:py-24">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#c23d1f]">Frequently asked questions</p>
+      {/* ============ FAQs ============ */}
+      <section id="faq" className="scroll-mt-20 bg-blush py-14 md:py-20">
+        <div className="mx-auto max-w-3xl px-6 md:px-12">
+          <p className={`${label} text-rose`}>Frequently asked questions</p>
+          <h2 className={`${h2} mt-4`}>Questions about therapy with Dr. Maya Reynolds.</h2>
 
-          <h2 className="mt-4 font-serif text-4xl md:text-5xl">
-            Questions about therapy with Dr. Maya Reynolds.
-          </h2>
-
-          <div className="mt-10 space-y-4">
+          <div className="mt-10 divide-y divide-plum/20 border-y border-plum/20">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group rounded-2xl bg-white px-6 py-5 shadow-sm transition open:shadow-lg">
-                <summary className="flex cursor-pointer items-center justify-between gap-4 font-serif text-lg">
+              <details key={faq.q} className="group py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-6 font-heading text-2xl font-light">
                   {faq.q}
-                  <span className="faq-icon flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ffe3d6] text-xl text-[#c23d1f] transition">
+                  <span className="faq-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-rose text-xl text-rose transition">
                     +
                   </span>
                 </summary>
-                <p className="mt-4 leading-7 text-[#5d4d70]">{faq.a}</p>
+                <p className={`${body} mt-3`}>{faq.a}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="scroll-mt-20 px-5 py-20 sm:px-6 md:py-28">
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-white shadow-2xl shadow-[#6a3fd6]/20 lg:grid lg:grid-cols-5">
-          <div className="bg-gradient-to-br from-[#2b1b3d] via-[#4a2a6b] to-[#7c3a8f] p-8 text-[#fff8f2] sm:p-10 lg:col-span-2 lg:p-12">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#ffb29e]">Begin where you are</p>
+      {/* ============ Contact / Schedule ============ */}
+      <section id="contact" className="scroll-mt-20 bg-plum py-14 text-cream md:py-20">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:items-start`}>
+          <div>
+            <p className={`${label} text-rose-light`}>Schedule a consultation</p>
 
-            <h2 className="mt-5 font-serif text-3xl leading-tight md:text-4xl">
-              Ready to start therapy in Santa Monica?
+            <h2 className={`${h2} mt-4`}>
+              Let&apos;s see if I&apos;m the right fit for{" "}
+              <span className={`${script} text-rose-light`}>you</span>.
             </h2>
 
-            <p className="mt-5 leading-8 text-white/85">
-              If you're looking for a therapist who combines practical tools
-              with depth-oriented work, I may be a good fit. Reach out to
-              arrange a consultation.
+            <p className="mt-6 text-base leading-8 text-cream/85">
+              If you&apos;re looking for a therapist who combines practical
+              tools with depth-oriented work, and who understands the realities
+              of living and working in a fast-paced environment, I may be a
+              good fit. Share a few details and I&apos;ll be in touch.
             </p>
 
-            <div className="mt-8 space-y-4 text-sm text-white/90">
+            <Photo
+              src="/contact-left.jpg"
+              alt="Warm cup of tea in quiet light, a calm moment before a therapy session"
+              className={`mt-8 max-w-md ${leaf}`}
+            />
+          </div>
+
+          <form onSubmit={handleSubmit} className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label htmlFor="name" className={`${label} mb-3 block`}>Full name</label>
+              <input id="name" name="name" required placeholder="Your name" className={inputClass} />
+            </div>
+
+            <div>
+              <label htmlFor="email" className={`${label} mb-3 block`}>Email</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com" className={inputClass} />
+            </div>
+
+            <div>
+              <label htmlFor="phone" className={`${label} mb-3 block`}>
+                Phone <span className="normal-case tracking-normal text-cream/70">(optional)</span>
+              </label>
+              <input id="phone" name="phone" type="tel" placeholder="Best number to reach you" className={inputClass} />
+            </div>
+
+            <div>
+              <label htmlFor="format" className={`${label} mb-3 block`}>Preferred format</label>
+              <select id="format" name="format" defaultValue="In-person (Santa Monica)" className={inputClass}>
+                <option className="text-plum">In-person (Santa Monica)</option>
+                <option className="text-plum">Telehealth (California)</option>
+                <option className="text-plum">No preference</option>
+              </select>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label htmlFor="concern" className={`${label} mb-3 block`}>
+                What would you like support with?
+              </label>
+              <select id="concern" name="concern" defaultValue="Not sure yet" className={inputClass}>
+                {services.map((service) => (
+                  <option key={service.title} className="text-plum">
+                    {service.title}
+                  </option>
+                ))}
+                <option className="text-plum">Not sure yet</option>
+              </select>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label htmlFor="message" className={`${label} mb-3 block`}>
+                Anything you&apos;d like me to know{" "}
+                <span className="normal-case tracking-normal text-cream/70">(optional)</span>
+              </label>
+              <textarea id="message" name="message" rows={4} placeholder="A few words about what brings you here." className={inputClass} />
+            </div>
+
+            <div className="sm:col-span-2">
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="rounded-full border border-rose-light px-10 py-4 text-xs uppercase tracking-[0.25em] text-rose-light transition hover:bg-rose-light hover:text-plum-deep disabled:opacity-60"
+              >
+                {status === "sending" ? "Sending..." : "Book a consultation"}
+              </button>
+
+              {status === "sent" && (
+                <p role="status" className="mt-6 text-sm leading-7">
+                  Thank you. Your request has been sent and I&apos;ll be in touch soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p role="alert" className="mt-6 text-sm leading-7 text-rose-light">
+                  Something went wrong. Please try again, or email{" "}
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="underline">
+                    {CONTACT_EMAIL}
+                  </a>
+                  .
+                </p>
+              )}
+            </div>
+          </form>
+        </div>
+      </section>
+
+      {/* ============ Footer ============ */}
+      <footer className="bg-white">
+        <div className={`${wrap} grid gap-10 py-14 lg:grid-cols-12`}>
+          <div className="lg:col-span-5">
+            <p className="font-heading text-5xl font-light leading-none">Maya Reynolds</p>
+            <p className="mt-3 text-xs tracking-[0.35em] text-rose">PSYD · CLINICAL PSYCHOLOGY</p>
+            <p className={`${body} mt-6 max-w-md`}>
+              You&apos;re welcome to come into my office in Santa Monica, or
+              schedule secure telehealth sessions if you&apos;re located in
+              California.
+            </p>
+          </div>
+
+          <div className="lg:col-span-2">
+            <p className={label}>Navigate</p>
+            <ul className="mt-5 space-y-3 text-muted">
+              <li><a href="#top" className="hover:text-rose">Home</a></li>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="hover:text-rose">{link.label}</a>
+                </li>
+              ))}
+              <li><a href="#contact" className="hover:text-rose">Contact</a></li>
+            </ul>
+          </div>
+
+          <div className="lg:col-span-2">
+            <p className={label}>Specialties</p>
+            <ul className="mt-5 space-y-3 text-muted">
+              {services.map((service) => (
+                <li key={service.title}>{service.title}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-3">
+            <p className={label}>Contact</p>
+            <div className="mt-5 space-y-1 text-muted">
+              <p>123th Street 45 W</p>
+              <p>Santa Monica, CA 90401</p>
               <p>
-                <span className="block text-[10px] uppercase tracking-[0.25em] text-[#ffb29e]">Email</span>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="break-all hover:underline">
-                  {CONTACT_EMAIL}
-                </a>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-rose">{CONTACT_EMAIL}</a>
               </p>
               {CONTACT_PHONE && (
                 <p>
-                  <span className="block text-[10px] uppercase tracking-[0.25em] text-[#ffb29e]">Phone</span>
-                  <a href={`tel:${CONTACT_PHONE.replace(/[^+\d]/g, "")}`} className="hover:underline">
+                  <a href={`tel:${CONTACT_PHONE.replace(/[^+\d]/g, "")}`} className="hover:text-rose">
                     {CONTACT_PHONE}
                   </a>
                 </p>
               )}
-              <p>
-                <span className="block text-[10px] uppercase tracking-[0.25em] text-[#ffb29e]">Office</span>
-                123th Street 45 W, Santa Monica, CA 90401
-              </p>
-              <p>
-                <span className="block text-[10px] uppercase tracking-[0.25em] text-[#ffb29e]">Sessions</span>
-                In-person in Santa Monica · Telehealth throughout California
-              </p>
             </div>
-          </div>
-
-          <div className="p-8 sm:p-10 lg:col-span-3 lg:p-12">
-            <h3 className="font-serif text-2xl md:text-3xl">Request a consultation</h3>
-            <p className="mt-2 text-sm leading-6 text-[#5d4d70]">
-              Share a few details and I'll be in touch to arrange a first conversation.
+            <p className="mt-5 italic leading-7 text-muted">
+              In-person in Santa Monica · Telehealth throughout California
             </p>
-
-            <form onSubmit={handleSubmit} className="mt-8 grid gap-5 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium">Full name</label>
-                <input id="name" name="name" required placeholder="Your name" className={inputClass} />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium">Email</label>
-                <input id="email" name="email" type="email" required placeholder="you@example.com" className={inputClass} />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="mb-2 block text-sm font-medium">
-                  Phone <span className="font-normal text-[#8a7d9c]">(optional)</span>
-                </label>
-                <input id="phone" name="phone" type="tel" placeholder="Best number to reach you" className={inputClass} />
-              </div>
-
-              <div>
-                <label htmlFor="format" className="mb-2 block text-sm font-medium">Preferred format</label>
-                <select id="format" name="format" defaultValue="In-person (Santa Monica)" className={inputClass}>
-                  <option>In-person (Santa Monica)</option>
-                  <option>Telehealth (California)</option>
-                  <option>No preference</option>
-                </select>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label htmlFor="concern" className="mb-2 block text-sm font-medium">
-                  What would you like support with?
-                </label>
-                <select id="concern" name="concern" defaultValue="Not sure yet" className={inputClass}>
-                  {services.map((service) => (
-                    <option key={service.number}>{service.title}</option>
-                  ))}
-                  <option>Not sure yet</option>
-                </select>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label htmlFor="message" className="mb-2 block text-sm font-medium">
-                  Anything you'd like me to know <span className="font-normal text-[#8a7d9c]">(optional)</span>
-                </label>
-                <textarea id="message" name="message" rows={4} placeholder="A few words about what brings you here." className={inputClass} />
-              </div>
-
-              <div className="sm:col-span-2">
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className={`${primaryButton} w-full disabled:opacity-60 sm:w-auto`}
-                >
-                  {status === "sending" ? "Sending..." : "Send request ↗"}
-                </button>
-
-                {status === "sent" && (
-                  <p role="status" className="mt-4 text-sm leading-6 text-[#5d4d70]">
-                    Thank you. Your request has been sent and I'll be in touch soon.
-                  </p>
-                )}
-
-                {status === "error" && (
-                  <p role="alert" className="mt-4 text-sm leading-6 text-[#c23d1f]">
-                    Something went wrong. Please try again, or email{" "}
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium underline">
-                      {CONTACT_EMAIL}
-                    </a>
-                    .
-                  </p>
-                )}
-              </div>
-            </form>
           </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="bg-[#1d1229] px-5 py-10 text-sm text-white/75 sm:px-6">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 lg:px-12">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <p className="font-serif text-lg text-white">
-              Maya Reynolds, PsyD
-              <span className="block font-sans text-xs uppercase tracking-[0.2em] text-[#ffb29e]">
-                Psychology & Wellbeing
-              </span>
-            </p>
-
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              {navLinks.map((link) => (
-                <a key={link.href} href={link.href} className="hover:text-white">
-                  {link.label}
-                </a>
-              ))}
-              <a href="#contact" className="hover:text-white">Contact</a>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs md:flex-row md:items-center md:justify-between">
-            <p>© 2026 Dr. Maya Reynolds, PsyD · Anxiety, Trauma & Burnout Therapy in Santa Monica, CA</p>
-            <p>In-person in Santa Monica · Telehealth throughout California</p>
+        <div className="bg-plum py-5 text-sm text-cream/85">
+          <div className={wrap}>
+            © 2026 Dr. Maya Reynolds, PsyD · Anxiety, Trauma &amp; Burnout Therapy in Santa Monica, CA
           </div>
         </div>
       </footer>
